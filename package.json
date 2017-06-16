@@ -1,0 +1,22 @@
+{
+  "name": "image-search",
+  "version": "1.0.0",
+  "description": "",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/LauraBrandt/image-search.git"
+  },
+  "bugs": {
+    "url": "https://github.com/LauraBrandt/image-search/issues"
+  },
+  "author": "Laura Brandt",
+  "engines": {
+    "node": "4.5.0"
+  },
+  "license": "MIT"
+}
