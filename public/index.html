@@ -18,10 +18,72 @@
 				<li>I can get a list of the most recently submitted search strings.</li>
 			</ul>
 		</blockquote>
-		<h3>Example usage:</h3>
-		<code><a href=""></a></code>
+		<h3>Example usage - Search for images:</h3>
+		<h4><code><a href="https://cryptic-ridge-9197.herokuapp.com/api/imagesearch/lolcats%20funny?offset=2">https://cryptic-ridge-9197.herokuapp.com/api/imagesearch/lolcats%20funny?offset=2</a></h4></code>
 		<h3>Example output:</h3>
-		<code>{}</code>
+		<pre><code>
+{[
+	{
+		"url":"https://i.ytimg.com/vi/dWpGC6Fg0io/hqdefault.jpg",
+		"snippet":"Jas Patrick sings Snow Day starring LOLCats Funny Cats - YouTube",
+		"thumbnail":"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRNMCLSl2dHm87xTU6uMFZD0Jym2E-4lAaSdJzfc_6OkeB_CdF1vjgZZsR2",
+		"context":"https://www.youtube.com/watch?v=dWpGC6Fg0io"
+	},
+	{
+		"url":"https://s2.favim.com/orig/33/cat-funny-lol-lolcats-mean-Favim.com-261389.jpg",
+		"snippet":"cat, funny, lol, lolcats, mean - image #261389 on Favim.com",
+		"thumbnail":"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQkEWW7RAqY4HHhgiOc80Qr8AbZHEUN_KYOWOTmmGqDlPA0JYibUYGCnME",
+		"context":"https://favim.com/image/261389/"
+	}
+]}
+		</code></pre>
+		<h3>Example usage - Show recent searches:</h3>
+		<h4><code><a href="https://cryptic-ridge-9197.herokuapp.com/api/latest/imagesearch/">https://cryptic-ridge-9197.herokuapp.com/api/latest/imagesearch/</a></code></h4>
+		<h3>Example output:</h3>
+		<pre><code>
+[
+	{
+		"term":"cute baby",
+		"when":"2017-07-14T18:52:22.018Z"
+	},
+	{
+		"term":"dogs funny",
+		"when":"2017-07-14T18:52:15.436Z"
+	},
+	{
+		"term":"lolcats funny",
+		"when":"2017-07-14T18:29:07.103Z"
+	},
+	{
+		"term":"lolcats funny",
+		"when":"2017-07-14T18:28:53.888Z"
+	},
+	{
+		"term":"lolcats funny",
+		"when":"2017-07-14T18:28:49.167Z"
+	},
+	{
+		"term":"lolcats funny",
+		"when":"2017-07-14T18:28:44.726Z"
+	},
+	{
+		"term":"lolcats funny",
+		"when":"2017-07-14T18:28:19.398Z"
+	},
+	{
+		"term":"lolcats funny",
+		"when":"2017-07-14T18:27:59.957Z"
+	},
+	{
+		"term":"lolcats funny",
+		"when":"2017-07-14T18:27:33.440Z"
+	},
+	{
+		"term":"lolcats funny",
+		"when":"2017-07-14T18:26:22.139Z"
+	}
+]
+		</code></pre>
     </div>
 </body>
 </html>
