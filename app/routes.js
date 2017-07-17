@@ -1,5 +1,9 @@
 'use strict';
 
+var https = require('https');
+var google = require('googleapis');
+var customsearch = google.customsearch('v1');
+
 var recentSearches = [];
 
 var maxLengthRecentSearches = 10;
@@ -23,10 +27,23 @@ module.exports = function(app) {
         }
         
         // Search for images
+        var imageResults = [];
+        var cx = process.env.CSE_ID;
+        var api = process.env.API_KEY;
+        //num={count?}
         
-        
-        // Output result
-        res.end(JSON.stringify({}, null, 2));
+        customsearch.cse.list({ cx: cx, auth: api, q: searchTerm, searchType: "image"}, function (err, resp) {
+            if (err) console.error(err);
+            resp.items.forEach(function(result) {
+                imageResults.push({
+                    "imageUrl" : result.link,
+                    "snippet" : result.snippet,
+                    "pageUrl" : result.image.contextLink
+                });
+            });        
+            // Output result
+            res.end(JSON.stringify(imageResults, null, 2))
+        });
     });
     
     app.get('/api/latest', function(req, res) {
