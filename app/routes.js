@@ -1,6 +1,5 @@
 'use strict';
 
-var https = require('https');
 var google = require('googleapis');
 var customsearch = google.customsearch('v1');
 
@@ -44,7 +43,7 @@ module.exports = function(app) {
         getImageResults();
         
         function getImageResults() {
-            // Google custom search can only get 10 results at a time
+            // Google Custom Search can only get 10 results at a time
             if (numResultsLeft > 10) {
                 numResultsCurrent = 10;
                 numResultsLeft -= 10;
