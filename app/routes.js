@@ -14,6 +14,11 @@ module.exports = function(app) {
         res.sendFile(process.cwd() + "/public/index.html");
     });
     
+    app.get('/api/latest', function(req, res) {
+        console.log('Showing most recent searches...');
+        res.end(JSON.stringify(recentSearches, null, 2));
+    });
+    
     app.get('/api/:searchTerm', function(req, res) {
         var searchTerm = req.params.searchTerm;
         var resultsLength = req.query.offset ? req.query.offset : defaultResultsLength;
@@ -28,27 +33,47 @@ module.exports = function(app) {
         
         // Search for images
         var imageResults = [];
+        
         var cx = process.env.CSE_ID;
         var api = process.env.API_KEY;
-        //num={count?}
         
-        customsearch.cse.list({ cx: cx, auth: api, q: searchTerm, searchType: "image"}, function (err, resp) {
-            if (err) console.error(err);
-            resp.items.forEach(function(result) {
-                imageResults.push({
-                    "imageUrl" : result.link,
-                    "snippet" : result.snippet,
-                    "pageUrl" : result.image.contextLink
-                });
-            });        
-            // Output result
-            res.end(JSON.stringify(imageResults, null, 2))
-        });
-    });
-    
-    app.get('/api/latest', function(req, res) {
-        console.log('Showing most recent searches...');
-        res.end(JSON.stringify(recentSearches, null, 2));
+        var numResultsLeft = resultsLength;
+        var numResultsCurrent;
+        var needMoreResults = true;
+        
+        getImageResults();
+        
+        function getImageResults() {
+            // Google custom search can only get 10 results at a time
+            if (numResultsLeft > 10) {
+                numResultsCurrent = 10;
+                numResultsLeft -= 10;
+            }
+            else {
+                numResultsCurrent = numResultsLeft;
+                needMoreResults = false;
+            }
+            customsearch.cse.list({ cx: cx, auth: api, q: searchTerm, searchType: "image", num: numResultsCurrent}, function (err, resp) {
+                if (err) console.error(err);
+                
+                resp.items.forEach(function(result) {
+                    imageResults.push({
+                        "imageUrl" : result.link,
+                        "snippet" : result.snippet,
+                        "pageUrl" : result.image.contextLink
+                    });
+                }); 
+            
+                if (needMoreResults) {
+                    // Repeat until all results gotten
+                    getImageResults();
+                } else {
+                    // Output result
+                    res.end(JSON.stringify(imageResults, null, 2));
+                }
+                
+            });
+        }
     });
 
 };
